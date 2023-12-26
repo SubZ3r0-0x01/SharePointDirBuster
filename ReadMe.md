@@ -31,7 +31,7 @@ In the SharePoint realm, DirEnumerator 3000 is your go-to tool for efficiently n
 
 1. Clone this repository.
 2. Install dependencies: `pip install -r requirements.txt`
-3. Run the script: `python SharePointDirBuster-v0.1.py`
+3. Run the script: `python SharePointDirEnumerator3000.py`
 
 ## Usage
 
