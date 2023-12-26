@@ -1,4 +1,4 @@
-# Welcome to DirEnumerator 3000 - Unleash the Power of Enumeration!
+# Welcome to SharePoint DirEnumerator 3000 - Unleash the Power of Enumeration!
 # Developed by Parth Padhiyar - The Code Explorer 🚀
 # (c) 2023 Parth Padhiyar. All rights reserved.
 
