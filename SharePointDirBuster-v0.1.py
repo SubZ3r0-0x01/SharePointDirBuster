@@ -11,6 +11,9 @@ import signal
 from datetime import datetime
 import requests
 from colorama import Fore, Style, init as colorama_init
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 colorama_init(autoreset=True)
 
@@ -25,6 +28,15 @@ def get_target_url():
     if not target_url.startswith("http://") and not target_url.startswith("https://"):
         target_url = "http://" + target_url
     return target_url
+
+# Function to prompt the user for the proxy address
+def get_proxy():
+    proxy_option = input("Do you want to use a proxy? (yes/no): ").lower()
+    if proxy_option == 'yes':
+        proxy_address = input("Enter the proxy address (e.g., 127.0.0.1:8080): ").strip()
+        return {'http': f'http://{proxy_address}', 'https': f'https://{proxy_address}'}
+    else:
+        return None
 
 # Function to read directories from the file
 def read_directories_from_file(file_path='SPdir.txt'):
@@ -47,10 +59,10 @@ def handle_ntlm_authentication():
         return None
 
 # Function to make HTTP requests and log results
-def make_http_request(target_url, directory, auth=None, log_file=None):
+def make_http_request(target_url, directory, auth=None, log_file=None, proxy=None, verify_ssl=True):
     url = f"{target_url}/{directory}"
     try:
-        response = requests.get(url, auth=auth, timeout=5)
+        response = requests.get(url, auth=auth, timeout=5, proxies=proxy, verify=verify_ssl)
         status_code = response.status_code
         log_result(url, status_code, log_file)
         print(colored_status(status_code), url)
@@ -87,12 +99,18 @@ def main():
     # Handle NTLM authentication
     auth = handle_ntlm_authentication()
 
+    # Get proxy information from the user
+    proxy = get_proxy()
+
+    # Set SSL verification to False for upstreaming to Burp Suite
+    verify_ssl = False
+
     # Create a log file with a unique name based on the target URL and timestamp
     log_file = f"{target_url.replace('://', '_').replace('/', '_').strip('_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
     # Iterate through directories and make HTTP requests
     for directory in directories:
-        make_http_request(target_url, directory, auth, log_file)
+        make_http_request(target_url, directory, auth, log_file, proxy, verify_ssl)
 
 if __name__ == "__main__":
     # Execute the main function when the script is run
