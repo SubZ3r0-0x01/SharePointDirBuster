@@ -31,7 +31,7 @@ In the SharePoint realm, DirEnumerator 3000 is your go-to tool for efficiently n
 
 1. Clone this repository.
 2. Install dependencies: `pip install -r requirements.txt`
-3. Run the script: `python dir_enumerator.py`
+3. Run the script: `python SharePointDirBuster-v0.1.py`
 
 ## Usage
 
@@ -54,10 +54,6 @@ SharePoint DirEnumerator 3000 logs results to a CSV file with a unique name base
 ## Contributing
 
 If you find a bug or have an enhancement in mind, feel free to open an issue or submit a pull request. Your contributions make SharePoint DirEnumerator 3000 even better!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
